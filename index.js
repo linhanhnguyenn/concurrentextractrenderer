@@ -1,10 +1,17 @@
-function findMin(nums) {
-  let left = 0;
-  let right = nums.length - 1;
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] > nums[right]) left = mid + 1;
-    else right = mid;
+function serialize(root) {
+  const result = [];
+  const queue = [root];
+  while (queue.length) {
+    const node = queue.shift();
+    if (node) {
+      result.push(node.val);
+      queue.push(node.left, node.right);
+    } else {
+      result.push(null);
+    }
   }
-  return nums[left];
+  while (result[result.length - 1] === null) {
+    result.pop();
+  }
+  return result;
 }
