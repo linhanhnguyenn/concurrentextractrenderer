@@ -1,17 +1,22 @@
-function rotateRight(head, k) {
-  if (!head || k === 0) return head;
-  let length = 1;
-  let tail = head;
-  while (tail.next) {
-    length++;
-    tail = tail.next;
-  }
-  k = k % length;
-  if (k === 0) return head;
-  let newTail = head;
-  for (let i = 1; i < length - k; i++) newTail = newTail.next;
-  const newHead = newTail.next;
-  newTail.next = null;
-  tail.next = head;
-  return newHead;
+function minStack() {
+  this.stack = [];
+  this.minStack = [];
 }
+minStack.prototype.push = function (x) {
+  this.stack.push(x);
+  if (
+    this.minStack.length === 0 ||
+    x <= this.minStack[this.minStack.length - 1]
+  )
+    this.minStack.push(x);
+};
+minStack.prototype.pop = function () {
+  if (this.stack.pop() === this.minStack[this.minStack.length - 1])
+    this.minStack.pop();
+};
+minStack.prototype.top = function () {
+  return this.stack[this.stack.length - 1];
+};
+minStack.prototype.getMin = function () {
+  return this.minStack[this.minStack.length - 1];
+};
